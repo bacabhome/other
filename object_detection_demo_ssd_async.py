@@ -93,6 +93,11 @@ def main():
     cur_request_id = 0
     next_request_id = 1
 
+    framerate=25
+    display="appsrc ! videoconvert ! matroskamux streamable=true ! tcpserversink host=0.0.0.0 port=6000 sync=false sync-method=2"
+    fourcc = 0
+    displayout = cv2.VideoWriter(display, fourcc, framerate, (640, 480))
+
     log.info("Starting inference in async mode...")
     log.info("To switch between sync and async modes press Tab button")
     log.info("To stop the demo execution press Esc button")
@@ -158,6 +163,7 @@ def main():
         #
         render_start = time.time()
         cv2.imshow("Detection Results", frame)
+        displayout.write(frame)
         render_end = time.time()
         render_time = render_end - render_start
 
