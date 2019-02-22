@@ -182,7 +182,6 @@ def main():
         input_stream = 0
     else:
         input_stream = args.input
-        assert os.path.isfile(args.input), "Specified input file doesn't exist"
 
     cap = cv2.VideoCapture(input_stream)
 
