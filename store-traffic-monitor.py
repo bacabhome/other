@@ -201,11 +201,7 @@ def parse_conf_file():
                 if split[0].isdigit():
                     videoCap = VideoCap(cv2.VideoCapture(int(split[0])), split[1], CAM_WINDOW_NAME_TEMPLATE.format(idx), True)
                 else:
-                    if os.path.isfile(split[0]) :
-                        videoCap = VideoCap(cv2.VideoCapture(split[0]), split[1], CAM_WINDOW_NAME_TEMPLATE.format(idx), False)
-                    else:
-                        print ("Couldn't find " + split[0])
-                        sys.exit(3)
+                     videoCap = VideoCap(cv2.VideoCapture(split[0]), split[1], CAM_WINDOW_NAME_TEMPLATE.format(idx), False)
                 videoCaps.append(videoCap)
                 cnt += 1
             else:
