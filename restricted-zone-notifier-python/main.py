@@ -247,7 +247,7 @@ def main():
     message_thread.start()
 
     display="appsrc ! videoconvert ! matroskamux streamable=true ! tcpserversink host=" + args.hostip + " port=" + str(args.hostport) + " sync=false sync-method=2"
-    displayout = cv2.VideoWriter(display, args.fourcc, args.framerate, video_input_size)
+    displayout = cv2.VideoWriter(display, video_fourcc, args.framerate, video_input_size)
 
     ret, frame = cap.read()
     while ret:
