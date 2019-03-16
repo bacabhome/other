@@ -118,7 +118,7 @@ def ssd_out(res, args, initial_wh, selected_region):
     """
     global INFO
     person = []
-    INFO = INFO._replace(safe=True)
+    INFO = INFO._replace(safe=False)
 
     for obj in res[0][0]:
         # Draw objects only when probability is more than specified threshold
