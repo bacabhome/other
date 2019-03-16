@@ -191,13 +191,13 @@ def main():
 
     service_name = "Restricted Zone Notifier Python"
 
-    if arg.fourcc == 'XVID':
+    if args.fourcc == 'XVID':
         file_extension = 'vid'
-    elif arg.fourcc == 'FMP4':
+    elif args.fourcc == 'FMP4':
         file_extension = 'mp4'
-    elif arg.fourcc == 'MPEG':
+    elif args.fourcc == 'MPEG':
         file_extension = 'mp4'
-    elif arg.fourcc == 'MJPG':
+    elif args.fourcc == 'MJPG':
         file_extension = 'mjpg'
     else:
         print('Invalid FOURCC')
@@ -231,7 +231,7 @@ def main():
     video_record_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
     #video_record_path = '/home/user/media/' + video_record_filename
     #video_record = cv2.VideoWriter()
-    #video_record.open(video_record_path, video_fourcc, arg.framerate, video_input_size, True)
+    #video_record.open(video_record_path, video_fourcc, args.framerate, video_input_size, True)
 
     #if input_stream:
         # Adjust DELAY to match the number of FPS of the video file
