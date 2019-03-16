@@ -246,10 +246,8 @@ def main():
     message_thread.setDaemon(True)
     message_thread.start()
 
-    framerate=25
     display="appsrc ! videoconvert ! matroskamux streamable=true ! tcpserversink host=" + args.hostip + " port=" + str(args.hostport) + " sync=false sync-method=2"
-    fourcc = 0
-    displayout = cv2.VideoWriter(display, fourcc, framerate, (640, 480))
+    displayout = cv2.VideoWriter(display, args.fourcc, args.framerate, video_input_size)
 
     ret, frame = cap.read()
     while ret:
@@ -330,7 +328,6 @@ def main():
 
         render_start = time.time()
         cv2.imshow(service_name, frame)
-        cv2.imwrite(photo_filename, frame)
         displayout.write(frame)
         render_end = time.time()
         render_time = render_end - render_start
