@@ -165,7 +165,6 @@ def message_runner():
         CLIENT.publish(TOPIC, payload=json.dumps({"Worker safe": INFO.safe,
                                                   "Alert": not INFO.safe}))
 
-
 def main():
     """
     Load the network and parse the output.
@@ -219,7 +218,7 @@ def main():
        
     video_fourcc = cv2.VideoWriter_fourcc(*args.fourcc)
 
-    camera_identification_directory='/home/user/media/rznp/' + args.cameraidentification
+    camera_identification_directory='/home/user/media/rznp/' + args.cameraidentification + '/'
     try:
         os.makedirs(camera_identification_directory)
     except OSError:  
@@ -228,7 +227,9 @@ def main():
         print ("Successfully created the directory %s " % camera_identification_directory)
     
     now = time.gmtime()
-    video_record_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
+    media_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
+    photo_filename = camera_identification_directory + media_filename + '.%s' % file_extension
+    #media_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
     #video_record_path = '/home/user/media/' + video_record_filename
     #video_record = cv2.VideoWriter()
     #video_record.open(video_record_path, video_fourcc, args.framerate, video_input_size, True)
@@ -315,6 +316,10 @@ def main():
             format(render_time * 1000)
 
         if not INFO.safe:
+            now = time.gmtime()
+            media_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
+            photo_filename = camera_identification_directory + media_filename + '.%s' % file_extension       
+            cv2.imwrite(photo_filename, frame)
             warning = "HUMAN IN ASSEMBLY AREA: PAUSE THE MACHINE!"
             cv2.putText(frame, warning, (15, 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
 
