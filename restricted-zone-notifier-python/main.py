@@ -227,8 +227,8 @@ def main():
         print ("Successfully created the directory %s " % camera_identification_directory)
     
     now = time.gmtime()
-    media_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
-    photo_filename = camera_identification_directory + media_filename + '.%s' % file_extension
+    media_filename = time.strftime("%Y%m%d-%H%M%S", now)
+    photo_filename = camera_identification_directory + media_filename + '.png'
     #media_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
     #video_record_path = '/home/user/media/' + video_record_filename
     #video_record = cv2.VideoWriter()
@@ -315,13 +315,14 @@ def main():
         render_time_message = "OpenCV rendering time: {:.3f} ms". \
             format(render_time * 1000)
 
+        now = time.gmtime()
+        media_filename = time.strftime("%Y%m%d-%H%M%S", now)
+        photo_filename = camera_identification_directory + media_filename + '.png'
+
         if not INFO.safe:
-            now = time.gmtime()
-            media_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
-            photo_filename = camera_identification_directory + media_filename + '.%s' % file_extension       
-            cv2.imwrite(photo_filename, frame)
             warning = "HUMAN IN ASSEMBLY AREA: PAUSE THE MACHINE!"
             cv2.putText(frame, warning, (15, 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
+            cv2.imwrite(photo_filename, frame)
 
         cv2.putText(frame, inf_time_message, (15, 15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
         cv2.putText(frame, render_time_message, (15, 35), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
@@ -329,6 +330,7 @@ def main():
 
         render_start = time.time()
         cv2.imshow(service_name, frame)
+        cv2.imwrite(photo_filename, frame)
         displayout.write(frame)
         render_end = time.time()
         render_time = render_end - render_start
