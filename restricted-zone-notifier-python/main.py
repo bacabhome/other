@@ -223,9 +223,9 @@ def main():
     try:
         os.makedirs(camera_identification_directory)
     except OSError:  
-        print ("Creation of the directory %s failed" % path)
+        print ("Creation of the directory %s failed" % camera_identification_directory)
     else:  
-        print ("Successfully created the directory %s " % path)
+        print ("Successfully created the directory %s " % camera_identification_directory)
     
     now = time.gmtime()
     video_record_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
