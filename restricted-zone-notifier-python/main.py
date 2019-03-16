@@ -209,7 +209,7 @@ def main():
     message_thread.start()
 
     framerate=25
-    display="appsrc ! videoconvert ! matroskamux streamable=true ! tcpserversink host=0.0.0.0 port=6000 sync=false sync-method=2"
+    display="appsrc ! videoconvert ! matroskamux streamable=true ! tcpserversink host=" + args.hostip + " port=" + args.hostport + " sync=false sync-method=2"
     fourcc = 0
     displayout = cv2.VideoWriter(display, fourcc, framerate, (640, 480))
 
@@ -286,7 +286,7 @@ def main():
         cv2.putText(frame, "Worker Safe: {}".format(INFO.safe), (15, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
 
         render_start = time.time()
-        cv2.imshow("Restricted Zone Notifier", frame)
+        cv2.imshow(args.servicename, frame)
         displayout.write(frame)
         render_end = time.time()
         render_time = render_end - render_start
