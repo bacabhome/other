@@ -317,7 +317,7 @@ def main():
         media_filename = time.strftime("%Y%m%d-%H%M%S", now)
         photo_filename = camera_identification_directory + media_filename + '.png'
 
-        if not INFO.safe:
+        if INFO.safe:
             warning = "Human in designated area!"
             cv2.putText(frame, warning, (15, 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
             cv2.imwrite(photo_filename, frame)
