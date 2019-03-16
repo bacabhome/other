@@ -196,9 +196,9 @@ def main():
         logger.error("ERROR! Unable to open video source")
         sys.exit(1)
 
-    if input_stream:
+    #if input_stream:
         # Adjust DELAY to match the number of FPS of the video file
-        DELAY = 1000 / cap.get(cv2.CAP_PROP_FPS)
+    #    DELAY = 1000 / cap.get(cv2.CAP_PROP_FPS)
     # Initialise the class
     infer_network = Network()
     # Load the network to IE plugin to get shape of input layer
