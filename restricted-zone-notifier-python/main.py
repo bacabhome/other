@@ -92,11 +92,11 @@ def build_argparser():
     parser.add_argument('-r', '--rate', default=1, type=int,
                         help="Number of seconds between data updates "
                              "to MQTT server")
-    parser.add_argument('-sn', '--servicename', default=str, type=None,
-                        help="Service Name")    
-    parser.add_argument('-hi', '--hostip', default=str, type=None,
+    parser.add_argument('-sn', '--servicename', default="Restricted Zone Notifier Python", type=str,
+                        help="Service Name")
+    parser.add_argument('-hi', '--hostip', default=172.17.0.1, type=str,
                         help="Sink Host IP")
-    parser.add_argument('-hp', '--hostport', default=1, type=str,
+    parser.add_argument('-hp', '--hostport', default=5000, type=int,
                         help="Sink Host Port")
 
     return parser
