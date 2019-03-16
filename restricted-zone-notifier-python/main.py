@@ -318,7 +318,7 @@ def main():
         photo_filename = camera_identification_directory + media_filename + '.png'
 
         if not INFO.safe:
-            warning = "HUMAN IN ASSEMBLY AREA: PAUSE THE MACHINE!"
+            warning = "Human in Designated Area!"
             cv2.putText(frame, warning, (15, 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
             cv2.imwrite(photo_filename, frame)
 
