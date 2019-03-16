@@ -96,7 +96,7 @@ def build_argparser():
                         help="Service Name")    
     parser.add_argument('-hi', '--hostip', default=str, type=None,
                         help="Sink Host IP")
-    parser.add_argument('-hp', '--hostport', default=1, type=int,
+    parser.add_argument('-hp', '--hostport', default=1, type=str,
                         help="Sink Host Port")
 
     return parser
@@ -209,7 +209,7 @@ def main():
     message_thread.start()
 
     framerate=25
-    display="appsrc ! videoconvert ! matroskamux streamable=true ! tcpserversink host=" + args.hostip + " port=" + args.hostport + " sync=false sync-method=2"
+    display="appsrc ! videoconvert ! matroskamux streamable=true ! tcpserversink host=" + args.hostip + " port=" + str(args.hostport) + " sync=false sync-method=2"
     fourcc = 0
     displayout = cv2.VideoWriter(display, fourcc, framerate, (640, 480))
 
