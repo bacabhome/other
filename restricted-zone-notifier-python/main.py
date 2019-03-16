@@ -92,6 +92,13 @@ def build_argparser():
     parser.add_argument('-r', '--rate', default=1, type=int,
                         help="Number of seconds between data updates "
                              "to MQTT server")
+    parser.add_argument('-sn', '--servicename', default=str, type=None,
+                        help="Service Name")    
+    parser.add_argument('-hi', '--hostip', default=str, type=None,
+                        help="Sink Host IP")
+    parser.add_argument('-hp', '--hostport', default=1, type=int,
+                        help="Sink Host Port")
+
     return parser
 
 
