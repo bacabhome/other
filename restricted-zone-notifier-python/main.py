@@ -96,7 +96,7 @@ def build_argparser():
                         help="Camera Identification")
     parser.add_argument('-fr', '--framerate', default="15", type=int,
                         help="Framerate")
-    parser.add_argument('-cc', '--videofourcc', default="XVID", type=str,
+    parser.add_argument('-fc', '--fourcc', default="XVID", type=str,
                         help="FOURCC")
     parser.add_argument('-hi', '--hostip', default="172.17.0.1", type=str,
                         help="Sink Host IP")
@@ -217,7 +217,7 @@ def main():
     video_input_size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
                         int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
        
-    video_fourcc = cv2.VideoWriter_fourcc(*video_fourcc)
+    video_fourcc = cv2.VideoWriter_fourcc(*args.fourcc)
 
     camera_identification_directory='/home/user/media/rznp/' + args.cameraidentification
     try:
