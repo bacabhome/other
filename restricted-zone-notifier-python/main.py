@@ -92,8 +92,12 @@ def build_argparser():
     parser.add_argument('-r', '--rate', default=1, type=int,
                         help="Number of seconds between data updates "
                              "to MQTT server")
-    parser.add_argument('-sn', '--servicename', default="Restricted Zone Notifier Python", type=str,
-                        help="Service Name")
+    parser.add_argument('-ci', '--cameraidentification', default="Camera1", type=str,
+                        help="Camera Identification")
+    parser.add_argument('-fr', '--framerate', default="15", type=int,
+                        help="Framerate")
+    parser.add_argument('-cc', '--videofourcc', default="XVID", type=str,
+                        help="FOURCC")
     parser.add_argument('-hi', '--hostip', default=172.17.0.1, type=str,
                         help="Sink Host IP")
     parser.add_argument('-hp', '--hostport', default=5000, type=int,
@@ -185,6 +189,20 @@ def main():
     roi_w = args.width
     roi_h = args.height
 
+    service_name = "Restricted Zone Notifier Python"
+
+    if arg.fourcc == 'XVID':
+        file_extension = 'vid'
+    elif arg.fourcc == 'FMP4':
+        file_extension = 'mp4'
+    elif arg.fourcc == 'MPEG':
+        file_extension = 'mp4'
+    elif arg.fourcc == 'MJPG':
+        file_extension = 'mjpg'
+    else:
+        print('Invalid FOURCC')
+        sys.exit(1)
+
     if args.input == 'cam':
         input_stream = 0
     else:
@@ -195,6 +213,25 @@ def main():
     if not cap.isOpened():
         logger.error("ERROR! Unable to open video source")
         sys.exit(1)
+
+    video_input_size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
+                        int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+       
+    video_fourcc = cv2.VideoWriter_fourcc(*video_fourcc)
+
+    camera_identification_directory='/home/user/media/rznp/' + args.cameraidentification
+    try:
+        os.makedirs(camera_identification_directory)
+    except OSError:  
+        print ("Creation of the directory %s failed" % path)
+    else:  
+        print ("Successfully created the directory %s " % path)
+    
+    now = time.gmtime()
+    video_record_filename = time.strftime("%Y%m%d-%H%M%S", now) + '.%s' % file_extension
+    #video_record_path = '/home/user/media/' + video_record_filename
+    #video_record = cv2.VideoWriter()
+    #video_record.open(video_record_path, video_fourcc, arg.framerate, video_input_size, True)
 
     #if input_stream:
         # Adjust DELAY to match the number of FPS of the video file
@@ -286,7 +323,7 @@ def main():
         cv2.putText(frame, "Worker Safe: {}".format(INFO.safe), (15, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
 
         render_start = time.time()
-        cv2.imshow(args.servicename, frame)
+        cv2.imshow(service_name, frame)
         displayout.write(frame)
         render_end = time.time()
         render_time = render_end - render_start
