@@ -39,8 +39,8 @@ from collections import namedtuple
 from argparse import ArgumentParser
 from inference import Network
 
-# Assemblyinfo contains information about assembly area
-MyStruct = namedtuple("assemblyinfo", "safe")
+# designatedinfo contains information about designated area
+MyStruct = namedtuple("designated", "human")
 INFO = MyStruct(True)
 
 # MQTT server environment variables
@@ -118,7 +118,7 @@ def ssd_out(res, args, initial_wh, selected_region):
     """
     global INFO
     person = []
-    INFO = INFO._replace(safe=False)
+    INFO = INFO._replace(human=False)
 
     for obj in res[0][0]:
         # Draw objects only when probability is more than specified threshold
@@ -146,11 +146,11 @@ def ssd_out(res, args, initial_wh, selected_region):
         else:
             if area_of_person > area_of_intersection:
                 # assembly line area flags
-                INFO = INFO._replace(safe=True)
+                INFO = INFO._replace(human=True)
 
             else:
                 # assembly line area flags
-                INFO = INFO._replace(safe=False)
+                INFO = INFO._replace(human=False)
 
 
 def message_runner():
@@ -162,8 +162,8 @@ def message_runner():
     """
     while KEEP_RUNNING:
         time.sleep(1)
-        CLIENT.publish(TOPIC, payload=json.dumps({"Human": INFO.safe,
-                                                  "Alert": INFO.safe}))
+        CLIENT.publish(TOPIC, payload=json.dumps({"Human": INFO.human,
+                                                  "Alert": INFO.human}))
 
 def main():
     """
@@ -317,14 +317,14 @@ def main():
         media_filename = time.strftime("%Y%m%d-%H%M%S", now)
         photo_filename = camera_identification_directory + media_filename + '.png'
 
-        if INFO.safe:
-            warning = "Human in designated area!"
+        if INFO.human:
+            warning = "Human!"
             cv2.putText(frame, warning, (15, 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
             cv2.imwrite(photo_filename, frame)
 
         cv2.putText(frame, inf_time_message, (15, 15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
         cv2.putText(frame, render_time_message, (15, 35), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cv2.putText(frame, "Human: {}".format(INFO.safe), (15, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
+        cv2.putText(frame, "Human: {}".format(INFO.human), (15, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
 
         render_start = time.time()
         cv2.imshow(service_name, frame)
