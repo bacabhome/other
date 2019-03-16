@@ -162,7 +162,7 @@ def message_runner():
     """
     while KEEP_RUNNING:
         time.sleep(1)
-        CLIENT.publish(TOPIC, payload=json.dumps({"Worker safe": INFO.safe,
+        CLIENT.publish(TOPIC, payload=json.dumps({"Human": INFO.safe,
                                                   "Alert": not INFO.safe}))
 
 def main():
@@ -318,13 +318,13 @@ def main():
         photo_filename = camera_identification_directory + media_filename + '.png'
 
         if not INFO.safe:
-            warning = "Human in Designated Area!"
+            warning = "Human in designated area!"
             cv2.putText(frame, warning, (15, 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (0, 0, 255), 2)
             cv2.imwrite(photo_filename, frame)
 
         cv2.putText(frame, inf_time_message, (15, 15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
         cv2.putText(frame, render_time_message, (15, 35), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
-        cv2.putText(frame, "Worker Safe: {}".format(INFO.safe), (15, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
+        cv2.putText(frame, "Human: {}".format(INFO.safe), (15, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (255, 255, 255), 1)
 
         render_start = time.time()
         cv2.imshow(service_name, frame)
