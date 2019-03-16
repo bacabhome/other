@@ -45,8 +45,8 @@ INFO = MyStruct(True)
 
 # MQTT server environment variables
 HOSTNAME = socket.gethostname()
-IPADDRESS = socket.gethostbyname(HOSTNAME)
-TOPIC = "Restricted_zone_python"
+IPADDRESS = "172.17.0.1"
+TOPIC = "bacabhome/services/rznp"
 MQTT_HOST = IPADDRESS
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 60
