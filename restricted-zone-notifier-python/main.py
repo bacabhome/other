@@ -146,11 +146,11 @@ def ssd_out(res, args, initial_wh, selected_region):
         else:
             if area_of_person > area_of_intersection:
                 # assembly line area flags
-                INFO = INFO._replace(safe=False)
+                INFO = INFO._replace(safe=True)
 
             else:
                 # assembly line area flags
-                INFO = INFO._replace(safe=True)
+                INFO = INFO._replace(safe=False)
 
 
 def message_runner():
@@ -163,7 +163,7 @@ def message_runner():
     while KEEP_RUNNING:
         time.sleep(1)
         CLIENT.publish(TOPIC, payload=json.dumps({"Human": INFO.safe,
-                                                  "Alert": not INFO.safe}))
+                                                  "Alert": INFO.safe}))
 
 def main():
     """
