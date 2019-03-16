@@ -146,11 +146,11 @@ def ssd_out(res, args, initial_wh, selected_region):
         else:
             if area_of_person > area_of_intersection:
                 # assembly line area flags
-                INFO = INFO._replace(safe=True)
+                INFO = INFO._replace(safe=False)
 
             else:
                 # assembly line area flags
-                INFO = INFO._replace(safe=False)
+                INFO = INFO._replace(safe=True)
 
 
 def message_runner():
