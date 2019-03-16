@@ -98,7 +98,7 @@ def build_argparser():
                         help="Framerate")
     parser.add_argument('-cc', '--videofourcc', default="XVID", type=str,
                         help="FOURCC")
-    parser.add_argument('-hi', '--hostip', default=172.17.0.1, type=str,
+    parser.add_argument('-hi', '--hostip', default="172.17.0.1", type=str,
                         help="Sink Host IP")
     parser.add_argument('-hp', '--hostport', default=5000, type=int,
                         help="Sink Host Port")
