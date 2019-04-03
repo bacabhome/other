@@ -41,8 +41,8 @@ INFO = MyStruct(0, 0)
 POSE_CHECKED = False
 
 # MQTT server environment variables
-TOPIC = "shopper_gaze_monitor"
-MQTT_HOST = "localhost"
+TOPIC = "bacabhome/sgm"
+MQTT_HOST = "172.17.0.1"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 60
 
@@ -116,7 +116,8 @@ def message_runner():
     :return: None
     """
     while KEEP_RUNNING:
-        payload = json.dumps({"Shopper": INFO.shopper, "Looker": INFO.looker})
+        #payload = json.dumps({"Shopper": INFO.shopper, "Looker": INFO.looker})
+        payload = "True"
         time.sleep(1)
         CLIENT.publish(TOPIC, payload=payload)
 
