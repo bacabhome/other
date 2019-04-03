@@ -117,7 +117,7 @@ def message_runner():
     """
     while KEEP_RUNNING:
         #payload = json.dumps({"Shopper": INFO.shopper, "Looker": INFO.looker})
-        payload = "True"
+        payload = INFO.looker
         time.sleep(1)
         CLIENT.publish(TOPIC, payload=payload)
 
